@@ -1,7 +1,7 @@
-import { clusterApiUrl } from '@solana/web3.js'
+import { clusterApiUrl, Connection } from '@solana/web3.js'
 import { atom, useAtomValue, useSetAtom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
-import { createContext, ReactNode, useContext } from 'react'
+import { createContext, ReactNode, useContext, useMemo } from 'react'
 
 export interface AppCluster {
   name: string
@@ -55,6 +55,7 @@ const activeClusterAtom = atom<AppCluster>((get) => {
 })
 
 export interface ClusterProviderContext {
+  connection: Connection
   cluster: AppCluster
   clusters: AppCluster[]
   addCluster: (cluster: AppCluster) => void
@@ -72,7 +73,10 @@ export function ClusterProvider({ children }: { children: ReactNode }) {
   const setCluster = useSetAtom(clusterAtom)
   const setClusters = useSetAtom(clustersAtom)
 
+  const connection = useMemo(() => new Connection(cluster.endpoint ?? clusterApiUrl('devnet'), 'confirmed'), [cluster])
+
   const value: ClusterProviderContext = {
+    connection,
     cluster,
     clusters: clusters.sort((a, b) => (a.name > b.name ? 1 : -1)),
     addCluster: (cluster: AppCluster) => {
