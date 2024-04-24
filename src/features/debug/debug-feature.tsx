@@ -17,7 +17,7 @@ export function DebugFeature() {
       <Text size="lg" fw="bold">
         Cluster
       </Text>
-      <UiDebug data={cluster} open hideButton />
+      <UiDebug data={cluster.cluster} open hideButton />
     </UiPage>
   )
 }

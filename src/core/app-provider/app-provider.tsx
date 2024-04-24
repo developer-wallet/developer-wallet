@@ -1,9 +1,11 @@
 import { AppLabelsProvider } from '@core/app-labels/app-labels-provider.tsx'
 import { ClusterProvider } from '@features/cluster/cluster-data-access.tsx'
 import { KeypairProvider } from '@features/keypair/data-access'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { UiProvider } from '@ui/ui-provider.tsx'
 import { createContext, ReactNode, useContext } from 'react'
 
+const client = new QueryClient()
 export interface AppProviderContext {
   href: string
   origin: string
@@ -21,15 +23,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <Context.Provider value={value}>
-      <ClusterProvider>
-        <KeypairProvider>
-          <AppLabelsProvider>
-            <UiProvider>{children}</UiProvider>
-          </AppLabelsProvider>
-        </KeypairProvider>
-      </ClusterProvider>
-    </Context.Provider>
+    <QueryClientProvider client={client}>
+      <Context.Provider value={value}>
+        <ClusterProvider>
+          <KeypairProvider>
+            <AppLabelsProvider>
+              <UiProvider>{children}</UiProvider>
+            </AppLabelsProvider>
+          </KeypairProvider>
+        </ClusterProvider>
+      </Context.Provider>
+    </QueryClientProvider>
   )
 }
 

@@ -41,7 +41,9 @@ export function KeypairUiSelect() {
   return (
     <Menu shadow="md" width={200}>
       <Menu.Target>
-        <Button variant="light">{keypair.name}</Button>
+        <Button variant="light" size="xs">
+          {keypair.name}
+        </Button>
       </Menu.Target>
 
       <Menu.Dropdown>
