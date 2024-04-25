@@ -1,8 +1,7 @@
-import { useMantineTheme } from '@mantine/core'
-import { UiGroup } from '@ui/ui-group'
+import { Group, useMantineTheme } from '@mantine/core'
 import { UiLogoType } from '@ui/ui-logo'
 import { useUiColorScheme } from '@ui/ui-theme'
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 
 export function AppHeader({ action }: { action?: ReactNode }) {
   const { colors } = useMantineTheme()
@@ -10,9 +9,9 @@ export function AppHeader({ action }: { action?: ReactNode }) {
   const bg = colorScheme === 'dark' ? colors.dark[9] : colors.gray[1]
 
   return (
-    <UiGroup p="xs" bg={bg}>
+    <Group justify="space-between" align="center" h="100%" px="sm" bg={bg}>
       <UiLogoType height={28} />
-      {action}
-    </UiGroup>
+      <Group>{action}</Group>
+    </Group>
   )
 }

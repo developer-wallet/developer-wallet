@@ -1,7 +1,6 @@
 import './fullscreen-layout.css'
 import { AppHeader } from '@core/app-header/app-header.tsx'
-import { AppProvider } from '@core/app-provider/app-provider.tsx'
-import { AppTab, AppTabs } from '@core/app-tabs-popup/app-tabs.tsx'
+import { AppLayout, AppLayoutPage } from '@core/app-layout/app-layout.tsx'
 import { AssetFeature } from '@features/asset/asset-feature.tsx'
 import { ClusterFeature } from '@features/cluster/cluster-feature.tsx'
 import { ClusterUiSelect } from '@features/cluster/cluster-ui.tsx'
@@ -9,23 +8,23 @@ import { DebugFeature } from '@features/debug/debug-feature.tsx'
 import { KeypairFeature } from '@features/keypair/feature'
 import { KeypairUiSelect } from '@features/keypair/ui'
 import { SettingsFeature } from '@features/settings/settings-feature.tsx'
-import { Box, Flex, Group } from '@mantine/core'
+import { Group } from '@mantine/core'
 import { IconActivity, IconBug, IconKey, IconMoneybag, IconServer, IconSettings } from '@tabler/icons-react'
 import React from 'react'
 
 export function FullscreenLayout() {
-  const tabs: AppTab[] = [
-    { id: 'assets', label: 'Assets', icon: IconMoneybag, panel: <AssetFeature /> },
-    { id: 'activity', label: 'Activity', icon: IconActivity, panel: <div>Activity</div> },
-    { id: 'clusters', label: 'Clusters', icon: IconServer, panel: <ClusterFeature /> },
-    { id: 'settings', label: 'Settings', icon: IconSettings, panel: <SettingsFeature /> },
-    { id: 'keypairs', label: 'Keypairs', icon: IconKey, panel: <KeypairFeature /> },
-    { id: 'debug', label: 'Debug', icon: IconBug, panel: <DebugFeature /> },
+  const pages: AppLayoutPage[] = [
+    { path: 'assets', label: 'Assets', leftSection: <IconMoneybag />, element: <AssetFeature /> },
+    { path: 'activity', label: 'Activity', leftSection: <IconActivity />, element: <div>Activity</div> },
+    { path: 'clusters', label: 'Clusters', leftSection: <IconServer />, element: <ClusterFeature /> },
+    { path: 'settings', label: 'Settings', leftSection: <IconSettings />, element: <SettingsFeature /> },
+    { path: 'keypairs', label: 'Keypairs', leftSection: <IconKey />, element: <KeypairFeature /> },
+    { path: 'debug', label: 'Debug', leftSection: <IconBug />, element: <DebugFeature /> },
   ]
 
   return (
-    <AppProvider>
-      <Flex h="100vh" direction="column" justify="space-between">
+    <AppLayout
+      header={
         <AppHeader
           action={
             <Group>
@@ -34,10 +33,8 @@ export function FullscreenLayout() {
             </Group>
           }
         />
-        <Box style={{ flexGrow: 1 }}>
-          <AppTabs tabs={tabs} orientation="vertical" />
-        </Box>
-      </Flex>
-    </AppProvider>
+      }
+      pages={pages}
+    />
   )
 }

@@ -4,6 +4,7 @@ import { KeypairProvider } from '@features/keypair/data-access'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { UiProvider } from '@ui/ui-provider.tsx'
 import { createContext, ReactNode, useContext } from 'react'
+import { HashRouter } from 'react-router-dom'
 
 const client = new QueryClient()
 export interface AppProviderContext {
@@ -35,13 +36,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={client}>
       <Context.Provider value={value}>
-        <ClusterProvider>
-          <KeypairProvider>
-            <AppLabelsProvider>
-              <UiProvider>{children}</UiProvider>
-            </AppLabelsProvider>
-          </KeypairProvider>
-        </ClusterProvider>
+        <HashRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
+          <ClusterProvider>
+            <KeypairProvider>
+              <AppLabelsProvider>
+                <UiProvider>{children}</UiProvider>
+              </AppLabelsProvider>
+            </KeypairProvider>
+          </ClusterProvider>
+        </HashRouter>
       </Context.Provider>
     </QueryClientProvider>
   )
