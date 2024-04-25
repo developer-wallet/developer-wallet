@@ -1,6 +1,5 @@
-import './popup-layout.css'
+import './sidepanel-layout.css'
 import { AppHeaderFullscreen } from '@core/app-header/app-header-fullscreen.tsx'
-import { AppHeaderSidebar } from '@core/app-header/app-header-sidebar.tsx'
 import { AppHeader } from '@core/app-header/app-header.tsx'
 import { AppProvider } from '@core/app-provider/app-provider.tsx'
 import { AppTab, AppTabs } from '@core/app-tabs-popup/app-tabs.tsx'
@@ -8,7 +7,7 @@ import { Box, Flex, Group } from '@mantine/core'
 import { IconActivity, IconMoneybag, IconSettings } from '@tabler/icons-react'
 import React from 'react'
 
-export function PopupLayout() {
+export function SidepanelLayout() {
   const tabs: AppTab[] = [
     { id: 'assets', label: 'Assets', icon: IconMoneybag, panel: <div>Assets</div> },
     { id: 'activity', label: 'Activity', icon: IconActivity, panel: <div>Activity</div> },
@@ -22,7 +21,6 @@ export function PopupLayout() {
           action={
             <Group>
               <AppHeaderFullscreen />
-              <AppHeaderSidebar />
             </Group>
           }
         />

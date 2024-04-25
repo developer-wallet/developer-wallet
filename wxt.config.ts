@@ -10,6 +10,10 @@ export default defineConfig({
     '@features': './src/features',
     '@ui': './src/ui',
   },
+  manifest: {
+    name: 'Developer Wallet',
+    permissions: ['sidePanel'],
+  },
   vite: () => ({
     plugins: [react()],
     define: {

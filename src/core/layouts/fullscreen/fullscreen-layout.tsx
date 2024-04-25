@@ -27,7 +27,6 @@ export function FullscreenLayout() {
     <AppProvider>
       <Flex h="100vh" direction="column" justify="space-between">
         <AppHeader
-          type="fullscreen"
           action={
             <Group>
               <KeypairUiSelect />

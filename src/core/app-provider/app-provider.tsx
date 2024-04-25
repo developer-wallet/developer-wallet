@@ -10,6 +10,11 @@ export interface AppProviderContext {
   href: string
   origin: string
   pathname: string
+  pages: {
+    fullscreen: string
+    popup: string
+    sidepanel: string
+  }
 }
 
 const Context = createContext<AppProviderContext>({} as AppProviderContext)
@@ -20,6 +25,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     href,
     origin,
     pathname,
+    pages: {
+      fullscreen: `${origin}/fullscreen.html`,
+      popup: `${origin}/popup.html`,
+      sidepanel: `${origin}/sidepanel.html`,
+    },
   }
 
   return (
@@ -39,4 +49,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
 export function useApp() {
   return useContext(Context)
+}
+
+export function useAppPages() {
+  const { pages } = useApp()
+  return pages
 }
