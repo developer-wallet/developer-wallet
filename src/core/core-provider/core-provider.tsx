@@ -1,13 +1,13 @@
-import { AppLabelsProvider } from '@core/app-labels/app-labels-provider.tsx'
-import { ClusterProvider } from '@features/cluster/cluster-data-access.tsx'
+import { ClusterProvider } from '@features/cluster'
 import { KeypairProvider } from '@features/keypair/data-access'
+import { LabelsProvider } from '@features/labels'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { UiProvider } from '@ui/ui-provider.tsx'
 import { createContext, ReactNode, useContext } from 'react'
 import { HashRouter } from 'react-router-dom'
 
 const client = new QueryClient()
-export interface AppProviderContext {
+export interface CoreProviderContext {
   href: string
   origin: string
   pathname: string
@@ -18,11 +18,11 @@ export interface AppProviderContext {
   }
 }
 
-const Context = createContext<AppProviderContext>({} as AppProviderContext)
+const Context = createContext<CoreProviderContext>({} as CoreProviderContext)
 
-export function AppProvider({ children }: { children: ReactNode }) {
+export function CoreProvider({ children }: { children: ReactNode }) {
   const { href, origin, pathname } = window.location
-  const value: AppProviderContext = {
+  const value: CoreProviderContext = {
     href,
     origin,
     pathname,
@@ -39,9 +39,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
         <HashRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
           <ClusterProvider>
             <KeypairProvider>
-              <AppLabelsProvider>
+              <LabelsProvider>
                 <UiProvider>{children}</UiProvider>
-              </AppLabelsProvider>
+              </LabelsProvider>
             </KeypairProvider>
           </ClusterProvider>
         </HashRouter>
@@ -50,11 +50,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
   )
 }
 
-export function useApp() {
+export function useCore() {
   return useContext(Context)
 }
 
-export function useAppPages() {
-  const { pages } = useApp()
+export function useCorePages() {
+  const { pages } = useCore()
   return pages
 }

@@ -1,19 +1,17 @@
 import './fullscreen-layout.css'
-import { AppHeader } from '@core/app-header/app-header.tsx'
-import { AppLayout, AppLayoutPage } from '@core/app-layout/app-layout.tsx'
-import { AssetFeature } from '@features/asset/asset-feature.tsx'
-import { ClusterFeature } from '@features/cluster/cluster-feature.tsx'
-import { ClusterUiSelect } from '@features/cluster/cluster-ui.tsx'
+import { CoreShell, CoreShellPage } from '@core/core-shell/core-shell.tsx'
+import { AssetFeature } from '@features/asset'
+import { ClusterFeature, ClusterUiSelect } from '@features/cluster'
 import { DebugFeature } from '@features/debug/debug-feature.tsx'
-import { KeypairFeature } from '@features/keypair/feature'
-import { KeypairUiSelect } from '@features/keypair/ui'
+import { KeypairFeature, KeypairUiSelect } from '@features/keypair'
 import { SettingsFeature } from '@features/settings/settings-feature.tsx'
 import { Group } from '@mantine/core'
 import { IconActivity, IconBug, IconKey, IconMoneybag, IconServer, IconSettings } from '@tabler/icons-react'
 import React from 'react'
+import { CoreHeader } from '../../core-header/core-header.tsx'
 
 export function FullscreenLayout() {
-  const pages: AppLayoutPage[] = [
+  const pages: CoreShellPage[] = [
     { path: 'assets', label: 'Assets', leftSection: <IconMoneybag />, element: <AssetFeature /> },
     { path: 'activity', label: 'Activity', leftSection: <IconActivity />, element: <div>Activity</div> },
     { path: 'clusters', label: 'Clusters', leftSection: <IconServer />, element: <ClusterFeature /> },
@@ -23,9 +21,9 @@ export function FullscreenLayout() {
   ]
 
   return (
-    <AppLayout
+    <CoreShell
       header={
-        <AppHeader
+        <CoreHeader
           action={
             <Group>
               <KeypairUiSelect />

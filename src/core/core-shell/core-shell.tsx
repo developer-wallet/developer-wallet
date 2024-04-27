@@ -3,19 +3,19 @@ import { UiLoader } from '@ui'
 import React, { ReactNode, Suspense } from 'react'
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
-export interface AppLayoutPage {
+export interface CoreShellPage {
   path: string
   label: string
   leftSection: ReactNode
   element: ReactNode
 }
 
-export interface AppLayoutProps {
+export interface CoreShellProps {
   header?: ReactNode
-  pages: AppLayoutPage[]
+  pages: CoreShellPage[]
 }
 
-export function AppLayout({ header, pages }: AppLayoutProps) {
+export function CoreShell({ header, pages }: CoreShellProps) {
   const navigate = useNavigate()
   const basePath = ''
   const location = useLocation()
@@ -39,7 +39,7 @@ export function AppLayout({ header, pages }: AppLayoutProps) {
   const footer = (
     <Tabs
       variant="default"
-      defaultValue={activeTab}
+      value={activeTab}
       onChange={(value) => navigate(`${basePath ? `${basePath}/${value}` : value}`)}
       inverted
     >

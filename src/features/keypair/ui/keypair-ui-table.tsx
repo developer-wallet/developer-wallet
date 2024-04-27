@@ -1,4 +1,4 @@
-import { AppLabel } from '@core/app-labels/app-labels-provider.tsx'
+import { RenderLabel } from '@features/labels'
 import { ActionIcon, Anchor, Button, Group, Table, Text } from '@mantine/core'
 import { IconCurrencySolana, IconTrash } from '@tabler/icons-react'
 import { UiAlert, UiCopy, UiDebugModal } from '@ui'
@@ -14,10 +14,10 @@ export function KeypairUiTable() {
           <Table.Tr key={item.name}>
             <Table.Td>
               {item?.active ? (
-                <AppLabel size="lg" publicKey={item.publicKey} />
+                <RenderLabel size="lg" publicKey={item.publicKey} />
               ) : (
                 <Anchor component="button" title="Select keypair" onClick={() => setKeypair(item)}>
-                  <AppLabel publicKey={item.publicKey} />
+                  <RenderLabel publicKey={item.publicKey} />
                 </Anchor>
               )}
 

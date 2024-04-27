@@ -1,4 +1,4 @@
-import { AppLabel } from '@core/app-labels/app-labels-provider.tsx'
+import { RenderLabel } from '@features/labels'
 import { ActionIcon, Button, Group, Loader, Table, Text } from '@mantine/core'
 import { PublicKey } from '@solana/web3.js'
 import { IconRefresh } from '@tabler/icons-react'
@@ -112,7 +112,7 @@ export function AssetUiTokenTable({
                         <ExplorerLink
                           copy={account.data.parsed.info.mint.toString()}
                           ff="monospace"
-                          label={<AppLabel publicKey={account.data.parsed.info.mint} />}
+                          label={<RenderLabel publicKey={account.data.parsed.info.mint} />}
                           path={`account/${account.data.parsed.info.mint.toString()}`}
                         />
                       </Table.Td>

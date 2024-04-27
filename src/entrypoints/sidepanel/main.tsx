@@ -1,12 +1,12 @@
-import { AppProvider } from '@core/app-provider/app-provider.tsx'
-import { SidepanelLayout } from '@core/layouts/sidepanel/sidepanel-layout.tsx'
+import { SidepanelLayout } from '@core/core-layouts/sidepanel/sidepanel-layout.tsx'
+import { CoreProvider } from '@core/core-provider/core-provider.tsx'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <AppProvider>
+    <CoreProvider>
       <SidepanelLayout />
-    </AppProvider>
+    </CoreProvider>
   </React.StrictMode>,
 )

@@ -2,7 +2,7 @@ import { ActionIcon, ActionIconProps } from '@mantine/core'
 import { IconLayoutSidebarRightInactive } from '@tabler/icons-react'
 import { browser } from 'wxt/browser'
 
-export function AppHeaderSidebar(props: ActionIconProps) {
+export function CoreHeaderSidebar(props: ActionIconProps) {
   async function openSidePanel() {
     const window = await browser.windows.getCurrent()
     const windowId = window.id
