@@ -1,4 +1,5 @@
-import { AppShell, Tabs, Text } from '@mantine/core'
+import { AppShell, Flex, Tabs, Text } from '@mantine/core'
+import { useViewportSize } from '@mantine/hooks'
 import { UiLoader } from '@ui'
 import React, { ReactNode, Suspense } from 'react'
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
@@ -16,6 +17,8 @@ export interface CoreShellProps {
 }
 
 export function CoreShell({ header, pages }: CoreShellProps) {
+  const { width } = useViewportSize()
+  const isSmall = width < 400
   const navigate = useNavigate()
   const basePath = ''
   const location = useLocation()
@@ -42,11 +45,19 @@ export function CoreShell({ header, pages }: CoreShellProps) {
       value={activeTab}
       onChange={(value) => navigate(`${basePath ? `${basePath}/${value}` : value}`)}
       inverted
+      styles={{ list: { height: isSmall ? '80px' : undefined } }}
     >
       <Tabs.List grow>
         {pages.map((tab) => (
-          <Tabs.Tab key={tab.path} value={tab.path} leftSection={tab.leftSection}>
-            <Text>{tab.label}</Text>
+          <Tabs.Tab key={tab.path} value={tab.path} leftSection={isSmall ? undefined : tab.leftSection}>
+            {isSmall ? (
+              <Flex align="center" direction="column" gap={4}>
+                {tab.leftSection}
+                <Text>{tab.label}</Text>
+              </Flex>
+            ) : (
+              <Text>{tab.label}</Text>
+            )}
           </Tabs.Tab>
         ))}
       </Tabs.List>
