@@ -4,3 +4,7 @@ export function ellipsify(str = '', len = 4, delimiter = '..') {
 
   return strLen >= limit ? str.substring(0, len) + delimiter + str.substring(strLen - len, strLen) : str
 }
+
+export function formatAmount(amount: number | string, decimals = 2) {
+  return Intl.NumberFormat('en-US', { maximumFractionDigits: decimals }).format(parseFloat(amount.toString()))
+}

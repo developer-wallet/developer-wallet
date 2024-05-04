@@ -1,19 +1,27 @@
 import { RenderLabel } from '@features/labels'
-import { ActionIcon, Anchor, Button, Group, Table, Text } from '@mantine/core'
+import { ActionIcon, Anchor, Group, Table, Text } from '@mantine/core'
 import { IconCurrencySolana, IconTrash } from '@tabler/icons-react'
-import { UiAlert, UiCopy, UiDebugModal } from '@ui'
-import { useKeypair } from '../data-access'
+import { UiCopy, UiDebugModal } from '@ui'
+import { AppKeypair } from '../data-access'
 
-export function KeypairUiTable() {
-  const { keypairs, generateKeypair, setKeypair, deleteKeypair } = useKeypair()
-
-  return keypairs?.length ? (
+export function KeypairUiTable({
+  keypair,
+  keypairs,
+  deleteKeypair,
+  setKeypair,
+}: {
+  keypair: AppKeypair | undefined
+  keypairs: AppKeypair[]
+  deleteKeypair: (keypair: AppKeypair) => Promise<void>
+  setKeypair: (keypair: AppKeypair) => Promise<void>
+}) {
+  return (
     <Table>
       <Table.Tbody>
         {keypairs?.map((item) => (
           <Table.Tr key={item.name}>
             <Table.Td>
-              {item?.active ? (
+              {keypair?.publicKey === item.publicKey ? (
                 <RenderLabel size="lg" publicKey={item.publicKey} />
               ) : (
                 <Anchor component="button" title="Select keypair" onClick={() => setKeypair(item)}>
@@ -37,7 +45,7 @@ export function KeypairUiTable() {
                 <ActionIcon
                   size="sm"
                   variant="light"
-                  disabled={item.active}
+                  disabled={keypair?.publicKey === item.publicKey}
                   onClick={() => {
                     if (!window.confirm('Are you sure?')) return
                     deleteKeypair(item)
@@ -51,7 +59,5 @@ export function KeypairUiTable() {
         ))}
       </Table.Tbody>
     </Table>
-  ) : (
-    <UiAlert title="No keypairs found" message={<Button onClick={() => generateKeypair()}>Generate Keypair</Button>} />
   )
 }

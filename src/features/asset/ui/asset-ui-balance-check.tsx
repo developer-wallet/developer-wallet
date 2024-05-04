@@ -1,7 +1,7 @@
 import { Button, Group, Text } from '@mantine/core'
 import { PublicKey } from '@solana/web3.js'
 import { UiWarning } from '@ui'
-import { useCluster } from '../../cluster/cluster-data-access'
+import { useCluster } from '../../cluster/data-access/cluster-provider.tsx'
 import { useGetBalance, useRequestAirdrop } from '../asset-data-access'
 
 export function AssetUiBalanceCheck({ address, label = 'Account not found' }: { address: PublicKey; label?: string }) {

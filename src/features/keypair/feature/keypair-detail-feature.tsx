@@ -1,7 +1,7 @@
+import { ClusterUiExplorerLink } from '@features/cluster/ui/cluster-ui-explorer-link.tsx'
 import { Group } from '@mantine/core'
 import { Keypair } from '@solana/web3.js'
 import { UiCopy, UiStack } from '@ui'
-import { ExplorerLink } from '../../cluster/cluster-ui.tsx'
 
 export function KeypairDetailScreen({ keypair }: { keypair: Keypair }) {
   const address = keypair.publicKey
@@ -11,7 +11,7 @@ export function KeypairDetailScreen({ keypair }: { keypair: Keypair }) {
       <UiStack gap={0}>
         <Group>
           <UiCopy text={address.toString()} />
-          <ExplorerLink ff="monospace" label={address.toString()} path={`account/${address}`} />
+          <ClusterUiExplorerLink ff="monospace" label={address.toString()} path={`account/${address}`} />
         </Group>
       </UiStack>
     </UiStack>

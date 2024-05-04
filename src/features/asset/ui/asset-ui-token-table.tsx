@@ -1,3 +1,4 @@
+import { ClusterUiExplorerLink } from '@features/cluster/ui/cluster-ui-explorer-link.tsx'
 import { RenderLabel } from '@features/labels'
 import { ActionIcon, Button, Group, Loader, Table, Text } from '@mantine/core'
 import { PublicKey } from '@solana/web3.js'
@@ -5,7 +6,6 @@ import { IconRefresh } from '@tabler/icons-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { UiError, UiInfo, UiStack } from '@ui'
 import { useMemo, useState } from 'react'
-import { ExplorerLink } from '../../cluster/cluster-ui'
 import { useGetTokenAccounts } from '../asset-data-access'
 import { formatAmount } from './asset-ui-form-send.tsx'
 import { AssetUiTokenActions } from './asset-ui-token-actions.tsx'
@@ -109,7 +109,7 @@ export function AssetUiTokenTable({
                   {items?.map(({ account, pubkey }) => (
                     <Table.Tr key={pubkey.toString()}>
                       <Table.Td>
-                        <ExplorerLink
+                        <ClusterUiExplorerLink
                           copy={account.data.parsed.info.mint.toString()}
                           ff="monospace"
                           label={<RenderLabel publicKey={account.data.parsed.info.mint} />}
@@ -117,7 +117,7 @@ export function AssetUiTokenTable({
                         />
                       </Table.Td>
                       <Table.Td>
-                        <ExplorerLink
+                        <ClusterUiExplorerLink
                           copy={pubkey.toString()}
                           ff="monospace"
                           label={ellipsify(pubkey.toString())}

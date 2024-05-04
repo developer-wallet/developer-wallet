@@ -3,7 +3,7 @@ import { IconKey } from '@tabler/icons-react'
 import { UiCard, UiCardTitle, UiGroup, UiPage, UiStack } from '@ui'
 
 import { useKeypair } from '../data-access'
-import { KeypairUiModal, KeypairUiTable } from '../ui'
+import { KeypairUiModal } from '../ui'
 
 export function KeypairListFeature() {
   const { generateKeypair } = useKeypair()
@@ -24,7 +24,8 @@ export function KeypairListFeature() {
           <Text>You can store your keys in the browser's local storage.</Text>
         </UiStack>
       </UiCard>
-      <KeypairUiTable />
+      KEYPAIR TABLE HERE
+      {/*<KeypairUiTable />*/}
     </UiPage>
   )
 }

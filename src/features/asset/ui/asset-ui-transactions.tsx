@@ -1,9 +1,9 @@
+import { ClusterUiExplorerLink } from '@features/cluster/ui/cluster-ui-explorer-link.tsx'
 import { ActionIcon, Badge, Button, Group, Loader, Table, Text } from '@mantine/core'
 import { PublicKey } from '@solana/web3.js'
 import { IconRefresh } from '@tabler/icons-react'
 import { UiError, UiInfo, UiStack, UiTime } from '@ui'
 import { useMemo, useState } from 'react'
-import { ExplorerLink } from '../../cluster/cluster-ui'
 import { useGetSignatures } from '../asset-data-access'
 
 import { ellipsify } from './ellipsify'
@@ -49,10 +49,14 @@ export function AssetUiTransactions({ address }: { address: PublicKey }) {
             {items?.map((item) => (
               <Table.Tr key={item.signature}>
                 <Table.Th>
-                  <ExplorerLink ff="monospace" path={`tx/${item.signature}`} label={ellipsify(item.signature, 8)} />
+                  <ClusterUiExplorerLink
+                    ff="monospace"
+                    path={`tx/${item.signature}`}
+                    label={ellipsify(item.signature, 8)}
+                  />
                 </Table.Th>
                 <Table.Td>
-                  <ExplorerLink ff="monospace" path={`block/${item.slot}`} label={item.slot.toString()} />
+                  <ClusterUiExplorerLink ff="monospace" path={`block/${item.slot}`} label={item.slot.toString()} />
                 </Table.Td>
                 <Table.Td>
                   <UiTime date={new Date((item.blockTime ?? 0) * 1000)} />

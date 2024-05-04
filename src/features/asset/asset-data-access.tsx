@@ -29,7 +29,7 @@ import {
 } from '@solana/web3.js'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { useCluster } from '../cluster/cluster-data-access'
+import { useCluster } from '../cluster/data-access/cluster-provider.tsx'
 
 export function useQueries({ address, commitment = 'confirmed' }: { address: PublicKey; commitment?: Commitment }) {
   const { connection } = useCluster()

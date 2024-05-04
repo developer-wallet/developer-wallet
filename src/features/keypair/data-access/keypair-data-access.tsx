@@ -1,21 +1,10 @@
+import { ellipsify } from '@core/core-helpers'
 import { Keypair as SolanaKeypair } from '@solana/web3.js'
-
-import { atom, useAtomValue, useSetAtom } from 'jotai'
-import { atomWithStorage } from 'jotai/utils'
+import { useQuery } from '@tanstack/react-query'
 import { createContext, ReactNode, useContext } from 'react'
+import { storage } from 'wxt/storage'
 
-export function formatAmount(amount: number | string, decimals = 2) {
-  return Intl.NumberFormat('en-US', { maximumFractionDigits: decimals }).format(parseFloat(amount.toString()))
-}
-
-function ellipsify(str = '', len = 4, delimiter = '..') {
-  const strLen = str.length
-  const limit = len * 2 + delimiter.length
-
-  return strLen >= limit ? str.substring(0, len) + delimiter + str.substring(strLen - len, strLen) : str
-}
-
-export interface Keypair {
+export interface AppKeypair {
   name: string
   publicKey: string
   secretKey: string
@@ -23,81 +12,93 @@ export interface Keypair {
   solana?: SolanaKeypair
 }
 
-export const defaultKeypairs: Keypair[] = []
+const initial = SolanaKeypair.generate()
+export const defaultKeypairs: AppKeypair[] = [
+  {
+    name: ellipsify(initial.publicKey.toString()),
+    publicKey: initial.publicKey.toString(),
+    secretKey: `[${Array.from(initial.secretKey)}]`,
+  },
+]
 
-const keypairAtom = atomWithStorage<Keypair>('ppl-keypair', defaultKeypairs[0])
-const keypairsAtom = atomWithStorage<Keypair[]>('ppl-keypairs', defaultKeypairs)
-
-const activeKeypairsAtom = atom<Keypair[]>((get) => {
-  const keypairs = get(keypairsAtom)
-  const keypair = get(keypairAtom)
-  return keypairs.map((item) => ({
-    ...item,
-    active: item?.name === keypair?.name,
-  }))
-})
-
-const activeKeypairAtom = atom<Keypair>((get) => {
-  const keypairs = get(activeKeypairsAtom)
-
-  return keypairs.find((item) => item.active) || keypairs[0]
+const keypairStorage = storage.defineItem<AppKeypair>('sync:keypair', { defaultValue: defaultKeypairs[0], version: 1 })
+const keypairsStorage = storage.defineItem<AppKeypair[]>('sync:keypairs', {
+  defaultValue: defaultKeypairs,
+  version: 1,
 })
 
 export interface KeypairProviderContext {
-  keypair: Keypair
-  keypairs: Keypair[]
-  addKeypair: (keypair: Keypair) => void
-  deleteKeypair: (keypair: Keypair) => void
+  keypair: AppKeypair | undefined
+  keypairs: AppKeypair[]
+  loading: boolean
+  addKeypair: (keypair: AppKeypair) => void
+  deleteKeypair: (keypair: AppKeypair) => void
   importKeypair: (secret: string) => void
-  setKeypair: (keypair: Keypair) => void
+  setKeypair: (keypair: AppKeypair) => void
   generateKeypair: () => void
 }
 
 const Context = createContext<KeypairProviderContext>({} as KeypairProviderContext)
 
+export function useStorageKeypair() {
+  return useQuery({
+    queryKey: ['keypair'],
+    queryFn: () => keypairStorage.getValue(),
+  })
+}
+
+export function useStorageKeypairs() {
+  return useQuery({
+    queryKey: ['keypairs'],
+    queryFn: () => keypairsStorage.getValue(),
+  })
+}
+
 export function KeypairProvider({ children }: { children: ReactNode }) {
-  const keypair = useAtomValue(activeKeypairAtom)
-  const keypairs = useAtomValue(activeKeypairsAtom)
-  const setKeypair = useSetAtom(keypairAtom)
-  const setKeypairs = useSetAtom(keypairsAtom)
+  const queryKeypair = useStorageKeypair()
+  const queryKeypairs = useStorageKeypairs()
+
+  const loading = queryKeypair.isLoading || queryKeypairs.isLoading
 
   function addNewKeypair(kp: SolanaKeypair) {
-    const keypair: Keypair = {
+    const keypair: AppKeypair = {
       name: ellipsify(kp.publicKey.toString()),
       publicKey: kp.publicKey.toString(),
-      secretKey: `[${kp.secretKey.join(',')}]`,
+      secretKey: `${Array.from(kp.secretKey)}`,
     }
-    setKeypairs([...keypairs, keypair])
-    if (!keypairs.length) {
-      activateKeypair(keypair)
-    }
+
+    // setKeypairs([...keypairs, keypair])
+    // if (!keypairs.length) {
+    //   activateKeypair(keypair)
+    // }
   }
 
-  function activateKeypair(keypair: Keypair) {
-    const kp = SolanaKeypair.fromSecretKey(new Uint8Array(JSON.parse(keypair.secretKey)))
-    setKeypair({ ...keypair, solana: kp })
+  function activateKeypair(keypair: AppKeypair) {
+    const kp = getSolanaKeypair(keypair)
+    // setKeypair({ ...keypair, solana: kp })
   }
 
-  function solanaInstance(kp: Keypair): Keypair {
+  function solanaInstance(kp: AppKeypair): AppKeypair {
     return {
       ...kp,
-      solana: kp?.secretKey ? SolanaKeypair.fromSecretKey(new Uint8Array(JSON.parse(kp?.secretKey))) : undefined,
+      solana: kp?.secretKey ? getSolanaKeypair(kp) : undefined,
     }
   }
 
   const value: KeypairProviderContext = {
-    keypair: solanaInstance(keypair),
-    keypairs: keypairs.sort((a, b) => (a.name > b.name ? 1 : -1)).map((item) => solanaInstance(item)),
-    addKeypair: (keypair: Keypair) => {
-      setKeypairs([...keypairs, keypair])
+    keypair: queryKeypair.data ? solanaInstance(queryKeypair.data) : undefined,
+    keypairs: queryKeypairs.data ?? [], // keypairs.sort((a, b) => (a.name > b.name ? 1 : -1)).map((item) => solanaInstance(item)),
+    loading,
+    addKeypair: (keypair: AppKeypair) => {
+      // setKeypairs([...keypairs, keypair])
     },
-    deleteKeypair: (keypair: Keypair) => {
-      setKeypairs(keypairs.filter((item) => item.name !== keypair.name))
+    deleteKeypair: (keypair: AppKeypair) => {
+      // setKeypairs(keypairs.filter((item) => item.name !== keypair.name))
     },
     importKeypair(secret: string) {
       addNewKeypair(SolanaKeypair.fromSecretKey(new Uint8Array(JSON.parse(secret))))
     },
-    setKeypair: (keypair: Keypair) => activateKeypair(keypair),
+    setKeypair: (keypair: AppKeypair) => activateKeypair(keypair),
     generateKeypair: () => addNewKeypair(SolanaKeypair.generate()),
   }
   return <Context.Provider value={value}>{children}</Context.Provider>
@@ -105,4 +106,13 @@ export function KeypairProvider({ children }: { children: ReactNode }) {
 
 export function useKeypair() {
   return useContext(Context)
+}
+
+function getSolanaKeypair(kp: AppKeypair): SolanaKeypair | undefined {
+  try {
+    return SolanaKeypair.fromSecretKey(new Uint8Array(JSON.parse(kp?.secretKey)))
+  } catch (e) {
+    console.log('Error parsing secret key', e)
+    return undefined
+  }
 }

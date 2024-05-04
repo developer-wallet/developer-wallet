@@ -1,10 +1,10 @@
+import { ClusterUiExplorerLink } from '@features/cluster/ui/cluster-ui-explorer-link.tsx'
 import { ActionIcon, Button, Group, Loader, Table, Text } from '@mantine/core'
 import { PublicKey } from '@solana/web3.js'
 import { IconRefresh } from '@tabler/icons-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { UiError, UiInfo, UiStack } from '@ui'
 import { useMemo, useState } from 'react'
-import { ExplorerLink } from '../cluster/cluster-ui'
 import { useGetTokenAccounts } from './asset-data-access'
 
 import { ellipsify } from './ui/ellipsify'
@@ -63,14 +63,14 @@ export function AssetUiTokens({ address }: { address: PublicKey }) {
                   {items?.map(({ account, pubkey }) => (
                     <Table.Tr key={pubkey.toString()}>
                       <Table.Td>
-                        <ExplorerLink
+                        <ClusterUiExplorerLink
                           ff="monospace"
                           label={ellipsify(pubkey.toString())}
                           path={`account/${pubkey.toString()}`}
                         />
                       </Table.Td>
                       <Table.Td>
-                        <ExplorerLink
+                        <ClusterUiExplorerLink
                           ff="monospace"
                           label={ellipsify(account.data.parsed.info.mint)}
                           path={`account/${account.data.parsed.info.mint.toString()}`}
