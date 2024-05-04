@@ -7,6 +7,7 @@ import {
   MantineThemeOverride,
 } from '@mantine/core'
 import { ModalsProvider } from '@mantine/modals'
+import { Notifications } from '@mantine/notifications'
 import { createContext, FunctionComponent, ReactNode, Suspense, useContext } from 'react'
 import { UiColorSchemeProvider } from './ui-color-scheme-provider'
 
@@ -55,6 +56,7 @@ export function UiThemeProvider({ children, link, theme }: UiThemeProviderOption
       <MantineProvider theme={theme ?? defaultTheme} defaultColorScheme="auto">
         <UiColorSchemeProvider>
           <ModalsProvider>
+            <Notifications />
             <Suspense fallback={<Loader />}>{children}</Suspense>
           </ModalsProvider>
         </UiColorSchemeProvider>
