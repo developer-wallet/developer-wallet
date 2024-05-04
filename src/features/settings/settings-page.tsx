@@ -1,15 +1,9 @@
-import { CoreStorage } from '@core/core-storage/core-storage.ts'
 import { NavLink } from '@mantine/core'
-import { IconChevronRight, IconKey, IconServer, IconSettings } from '@tabler/icons-react'
+import { IconBug, IconChevronRight, IconKey, IconServer, IconSettings } from '@tabler/icons-react'
 import { UiPage } from '@ui'
-import React from 'react'
 import { Link } from 'react-router-dom'
 
 export function SettingsPage() {
-  async function testStorage() {
-    await CoreStorage.test()
-  }
-
   return (
     <UiPage title="Settings" leftAction={<IconSettings />}>
       <NavLink
@@ -25,6 +19,14 @@ export function SettingsPage() {
         to={`/settings/keypairs`}
         label="Keypairs"
         leftSection={<IconKey />}
+        rightSection={<IconChevronRight />}
+        variant="filled"
+      />
+      <NavLink
+        component={Link}
+        to={`/settings/debug`}
+        label="Debug"
+        leftSection={<IconBug />}
         rightSection={<IconChevronRight />}
         variant="filled"
       />

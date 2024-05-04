@@ -4,7 +4,6 @@ import { CoreHeader } from '@core/core-header/core-header.tsx'
 import { CoreShell, CoreShellPage } from '@core/core-shell/core-shell.tsx'
 import { SettingsFeature } from '@features/settings/settings-feature.tsx'
 import { IconActivity, IconMoneybag, IconSettings } from '@tabler/icons-react'
-import React from 'react'
 
 export function SidepanelLayout() {
   const pages: CoreShellPage[] = [

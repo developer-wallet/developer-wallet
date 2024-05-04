@@ -1,4 +1,4 @@
-import { Button, Group, Text } from '@mantine/core'
+import { Group, Text } from '@mantine/core'
 import { IconKey } from '@tabler/icons-react'
 import { UiCard, UiCardTitle, UiGroup, UiPage, UiStack } from '@ui'
 
@@ -6,7 +6,7 @@ import { useKeypair } from '../data-access'
 import { KeypairUiModal } from '../ui'
 
 export function KeypairListFeature() {
-  const { generateKeypair } = useKeypair()
+  const {} = useKeypair()
   return (
     <UiPage title="Keypairs" leftAction={<IconKey />}>
       <UiCard
@@ -14,7 +14,6 @@ export function KeypairListFeature() {
           <UiGroup>
             <UiCardTitle>Keypairs</UiCardTitle>
             <Group justify="end">
-              <Button onClick={generateKeypair}>Generate Keypair</Button>
               <KeypairUiModal />
             </Group>
           </UiGroup>

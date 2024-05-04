@@ -1,7 +1,7 @@
 import { AppShell, Flex, Tabs, Text } from '@mantine/core'
 import { useViewportSize } from '@mantine/hooks'
 import { UiLoader } from '@ui'
-import React, { ReactNode, Suspense } from 'react'
+import { ReactNode, Suspense } from 'react'
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 export interface CoreShellPage {

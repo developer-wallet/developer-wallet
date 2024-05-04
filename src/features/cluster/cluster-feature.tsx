@@ -2,7 +2,7 @@ import { Button } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { IconServer } from '@tabler/icons-react'
 import { UiAlert, UiLoader, UiPage } from '@ui'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { useCluster } from './data-access'
 import { ClusterUiForm, ClusterUiTable } from './ui'
 

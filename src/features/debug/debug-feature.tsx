@@ -3,13 +3,13 @@ import { useCluster } from '@features/cluster'
 import { Text } from '@mantine/core'
 import { IconBug } from '@tabler/icons-react'
 import { UiDebug, UiPage } from '@ui'
-import React from 'react'
+import { ReactNode } from 'react'
 
-export function DebugFeature() {
+export function DebugFeature({ leftAction }: { leftAction?: ReactNode }) {
   const cluster = useCluster()
   const appData = useCore()
   return (
-    <UiPage title="Debug" leftAction={<IconBug />}>
+    <UiPage title="Debug" leftAction={leftAction ?? <IconBug />}>
       <Text size="lg" fw="bold">
         App Data
       </Text>

@@ -5,15 +5,13 @@ import { UiCopy, UiDebugModal } from '@ui'
 import { AppKeypair } from '../data-access'
 
 export function KeypairUiTable({
-  keypair,
   keypairs,
   deleteKeypair,
-  setKeypair,
+  selectKeypair,
 }: {
-  keypair: AppKeypair | undefined
   keypairs: AppKeypair[]
   deleteKeypair: (keypair: AppKeypair) => Promise<void>
-  setKeypair: (keypair: AppKeypair) => Promise<void>
+  selectKeypair: (keypair: AppKeypair) => Promise<void>
 }) {
   return (
     <Table>
@@ -21,10 +19,10 @@ export function KeypairUiTable({
         {keypairs?.map((item) => (
           <Table.Tr key={item.name}>
             <Table.Td>
-              {keypair?.publicKey === item.publicKey ? (
+              {item.active ? (
                 <RenderLabel size="lg" publicKey={item.publicKey} />
               ) : (
-                <Anchor component="button" title="Select keypair" onClick={() => setKeypair(item)}>
+                <Anchor component="button" title="Select keypair" onClick={() => selectKeypair(item)}>
                   <RenderLabel publicKey={item.publicKey} />
                 </Anchor>
               )}
@@ -45,10 +43,10 @@ export function KeypairUiTable({
                 <ActionIcon
                   size="sm"
                   variant="light"
-                  disabled={keypair?.publicKey === item.publicKey}
-                  onClick={() => {
+                  disabled={item.active}
+                  onClick={async () => {
                     if (!window.confirm('Are you sure?')) return
-                    deleteKeypair(item)
+                    await deleteKeypair(item)
                   }}
                 >
                   <IconTrash size={16} />

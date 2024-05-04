@@ -1,32 +1,34 @@
 import { KeypairUiTable, useKeypair } from '@features/keypair'
-import { ActionIcon, Button } from '@mantine/core'
-import { IconArrowLeft } from '@tabler/icons-react'
-import { UiAlert, UiDebug, UiLoader, UiPage } from '@ui'
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { Button } from '@mantine/core'
+import { IconKey } from '@tabler/icons-react'
+import { UiAlert, UiLoader, UiPage } from '@ui'
+import React, { ReactNode } from 'react'
 
-export function SettingsPageKeypairs() {
-  const { keypair, keypairs, loading, generateKeypair, setKeypair, deleteKeypair } = useKeypair()
+export function SettingsPageKeypairs({ leftAction }: { leftAction?: ReactNode }) {
+  const { deleteKeypair, generateKeypair, keypairs, loading, selectKeypair } = useKeypair()
 
   return (
     <UiPage
       title="Keypairs"
-      leftAction={
-        <ActionIcon color="brand" size="sm" variant="light" component={Link} to={`/settings`}>
-          <IconArrowLeft />
-        </ActionIcon>
+      leftAction={leftAction ?? <IconKey />}
+      rightAction={
+        <Button.Group>
+          <Button
+            size="xs"
+            variant="light"
+            onClick={async () => {
+              await generateKeypair()
+            }}
+          >
+            Generate Keypair
+          </Button>
+        </Button.Group>
       }
     >
-      <UiDebug data={{ keypairs, keypair }} open hideButton />
       {loading ? (
         <UiLoader />
       ) : keypairs.length ? (
-        <KeypairUiTable
-          keypair={keypair ?? undefined}
-          keypairs={keypairs ?? []}
-          deleteKeypair={async (k) => deleteKeypair(k)}
-          setKeypair={async (k) => setKeypair(k)}
-        />
+        <KeypairUiTable keypairs={keypairs ?? []} deleteKeypair={deleteKeypair} selectKeypair={selectKeypair} />
       ) : (
         <UiAlert
           title="No keypairs found"

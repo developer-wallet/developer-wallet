@@ -4,7 +4,7 @@ import { IconServer, IconServerOff } from '@tabler/icons-react'
 import { Link } from 'react-router-dom'
 
 export function ClusterUiSelect() {
-  const { clusters, setCluster, cluster } = useCluster()
+  const { clusters, selectCluster, cluster } = useCluster()
   return (
     <Menu shadow="md" width={200}>
       <Menu.Target>
@@ -18,7 +18,7 @@ export function ClusterUiSelect() {
           <Menu.Item
             key={item.name}
             fw={item.active ? 'bold' : 'normal'}
-            onClick={() => setCluster(item)}
+            onClick={() => selectCluster(item)}
             leftSection={item.active ? <IconServer /> : <IconServerOff />}
           >
             {item.name}

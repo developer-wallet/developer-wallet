@@ -5,7 +5,6 @@ import { CoreHeader } from '@core/core-header/core-header.tsx'
 import { CoreShell, CoreShellPage } from '@core/core-shell/core-shell.tsx'
 import { Group } from '@mantine/core'
 import { IconActivity, IconMoneybag, IconSettings } from '@tabler/icons-react'
-import React from 'react'
 
 export function PopupLayout() {
   const pages: CoreShellPage[] = [
