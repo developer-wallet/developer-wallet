@@ -8,7 +8,7 @@ export default defineConfig({
   alias: {
     '@core': './src/core',
     '@features': './src/features',
-    '@ui': './src/ui',
+    '@ui': './src/core/core-ui',
   },
   manifest: {
     name: 'Developer Wallet',

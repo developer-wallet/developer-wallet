@@ -1,7 +1,6 @@
 import { CoreHeaderSettings } from '@core/core-header/core-header-settings.tsx'
 import { Anchor, Group, useMantineTheme } from '@mantine/core'
-import { UiLogoType } from '@ui/ui-logo'
-import { useUiColorScheme } from '@ui/ui-theme'
+import { UiLogoType, useUiColorScheme } from '@ui'
 import React, { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 
