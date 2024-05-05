@@ -3,26 +3,22 @@ import { useKeypair } from '@features/keypair/data-access'
 import { Anchor, Group, Text, TextProps } from '@mantine/core'
 import { UiCopy } from '@ui'
 import { createContext, ReactNode, useContext, useMemo } from 'react'
+import { AppLabel } from './label-types'
 
-export interface AppLabel {
-  name: string
-  publicKey: string
-}
-
-export interface AppLabelsProviderContext {
+export interface AppLabelProviderContext {
   labels: AppLabel[]
   labelMap: Map<string, AppLabel>
   getLabel: (publicKey: string) => AppLabel | undefined
 }
 
-const Context = createContext<AppLabelsProviderContext>({} as AppLabelsProviderContext)
+const Context = createContext<AppLabelProviderContext>({} as AppLabelProviderContext)
 
 const defaultLabels: AppLabel[] = [
   { publicKey: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA', name: 'Token' },
   { publicKey: 'TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb', name: 'Token 2022' },
 ]
 
-export function LabelsProvider({ children }: { children: ReactNode }) {
+export function LabelProvider({ children }: { children: ReactNode }) {
   const { keypairs } = useKeypair()
 
   const keypairLabels = useMemo(
@@ -41,7 +37,7 @@ export function LabelsProvider({ children }: { children: ReactNode }) {
 
   const labelMap = useMemo(() => new Map<string, AppLabel>(labels.map((i) => [i.publicKey, i])), [labels])
 
-  const value: AppLabelsProviderContext = {
+  const value: AppLabelProviderContext = {
     labels,
     labelMap,
     getLabel: (publicKey: string) => labelMap.get(publicKey),
@@ -49,12 +45,12 @@ export function LabelsProvider({ children }: { children: ReactNode }) {
   return <Context.Provider value={value}>{children}</Context.Provider>
 }
 
-export function useLabels() {
+export function useLabel() {
   return useContext(Context)
 }
 
 export function RenderLabel({ publicKey, ...props }: TextProps & { publicKey: string }) {
-  const { getLabel } = useLabels()
+  const { getLabel } = useLabel()
 
   return <Text {...props}>{getLabel(publicKey)?.name ?? ellipsify(publicKey)}</Text>
 }

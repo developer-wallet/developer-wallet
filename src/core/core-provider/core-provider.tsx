@@ -1,12 +1,13 @@
 import { ClusterProvider } from '@features/cluster'
-import { KeypairProvider } from '@features/keypair/data-access'
-import { LabelsProvider } from '@features/labels'
+import { KeypairProvider } from '@features/keypair'
+import { LabelProvider } from '@features/label'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { UiProvider } from '@ui/ui-provider.tsx'
+import { UiProvider } from '@ui'
 import { createContext, ReactNode, useContext } from 'react'
 import { HashRouter } from 'react-router-dom'
 
 const client = new QueryClient()
+
 export interface CoreProviderContext {
   href: string
   origin: string
@@ -39,9 +40,9 @@ export function CoreProvider({ children }: { children: ReactNode }) {
         <HashRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
           <ClusterProvider>
             <KeypairProvider>
-              <LabelsProvider>
+              <LabelProvider>
                 <UiProvider>{children}</UiProvider>
-              </LabelsProvider>
+              </LabelProvider>
             </KeypairProvider>
           </ClusterProvider>
         </HashRouter>
@@ -55,6 +56,5 @@ export function useCore() {
 }
 
 export function useCorePages() {
-  const { pages } = useCore()
-  return pages
+  return useCore().pages
 }

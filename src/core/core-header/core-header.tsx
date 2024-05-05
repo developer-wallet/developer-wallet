@@ -1,8 +1,9 @@
 import { CoreHeaderSettings } from '@core/core-header/core-header-settings.tsx'
-import { Group, useMantineTheme } from '@mantine/core'
+import { Anchor, Group, useMantineTheme } from '@mantine/core'
 import { UiLogoType } from '@ui/ui-logo'
 import { useUiColorScheme } from '@ui/ui-theme'
 import React, { ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 
 export function CoreHeader({ action }: { action?: ReactNode }) {
   const { colors } = useMantineTheme()
@@ -11,8 +12,10 @@ export function CoreHeader({ action }: { action?: ReactNode }) {
 
   return (
     <Group justify="space-between" align="center" h="100%" px="sm" bg={bg}>
-      <UiLogoType height={28} />
-      <Group>
+      <Anchor component={Link} to="/" display="flex">
+        <UiLogoType height={28} />
+      </Anchor>
+      <Group gap="xs">
         {action}
         <CoreHeaderSettings />
       </Group>

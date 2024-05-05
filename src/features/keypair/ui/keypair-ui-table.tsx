@@ -1,7 +1,7 @@
-import { RenderLabel } from '@features/labels'
 import { ActionIcon, Anchor, Group, Table, Text } from '@mantine/core'
 import { IconCurrencySolana, IconTrash } from '@tabler/icons-react'
 import { UiCopy, UiDebugModal } from '@ui'
+import { RenderLabel } from '../../label'
 import { AppKeypair } from '../data-access'
 
 export function KeypairUiTable({

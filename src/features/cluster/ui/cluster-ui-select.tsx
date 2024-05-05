@@ -25,7 +25,7 @@ export function ClusterUiSelect() {
           </Menu.Item>
         ))}
         <Menu.Divider />
-        <Menu.Item disabled component={Link} to="/settings/clusters">
+        <Menu.Item component={Link} to="/settings/clusters">
           Manage Clusters
         </Menu.Item>
       </Menu.Dropdown>

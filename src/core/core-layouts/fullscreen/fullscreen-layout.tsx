@@ -1,11 +1,10 @@
-import './fullscreen-layout.css'
-import { CoreShell, CoreShellPage } from '@core/core-shell/core-shell.tsx'
+import { CoreHeader, CoreShell, CoreShellPage } from '@core'
 import { AssetFeature } from '@features/asset'
 import { ClusterUiSelect } from '@features/cluster'
-import { SettingsFeature } from '@features/settings/settings-feature.tsx'
+import { KeypairUiSelect } from '@features/keypair'
+import { SettingsFeature } from '@features/settings'
 import { Group } from '@mantine/core'
 import { IconActivity, IconMoneybag, IconSettings } from '@tabler/icons-react'
-import { CoreHeader } from '../../core-header/core-header.tsx'
 
 export function FullscreenLayout() {
   const pages: CoreShellPage[] = [
@@ -19,8 +18,8 @@ export function FullscreenLayout() {
       header={
         <CoreHeader
           action={
-            <Group>
-              {/*<KeypairUiSelect />*/}
+            <Group gap="xs">
+              <KeypairUiSelect />
               <ClusterUiSelect />
             </Group>
           }
