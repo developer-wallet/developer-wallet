@@ -1,31 +1,14 @@
-import { CoreHeader, CoreShell, CoreShellPage } from '@core'
-import { AssetFeature } from '@features/asset'
-import { ClusterUiSelect } from '@features/cluster'
-import { KeypairUiSelect } from '@features/keypair'
-import { SettingsFeature } from '@features/settings'
-import { Group } from '@mantine/core'
-import { IconActivity, IconMoneybag, IconSettings } from '@tabler/icons-react'
+import './fullscreen-layout.css'
+import { CoreHeader, CoreShell } from '@core'
+import { ACTIVITY_FEATURE_PAGE } from '@features/activity'
+import { ASSET_FEATURE_PAGE } from '@features/asset'
+import { SETTINGS_FEATURE_PAGE } from '@features/settings'
 
 export function FullscreenLayout() {
-  const pages: CoreShellPage[] = [
-    { path: 'assets', label: 'Assets', leftSection: <IconMoneybag />, element: <AssetFeature /> },
-    { path: 'activity', label: 'Activity', leftSection: <IconActivity />, element: <div>Activity</div> },
-    { path: 'settings', label: 'Settings', leftSection: <IconSettings />, element: <SettingsFeature /> },
-  ]
-
   return (
     <CoreShell
-      header={
-        <CoreHeader
-          action={
-            <Group gap="xs">
-              <KeypairUiSelect />
-              <ClusterUiSelect />
-            </Group>
-          }
-        />
-      }
-      pages={pages}
+      header={<CoreHeader withKeypair withCluster />}
+      pages={[ASSET_FEATURE_PAGE, ACTIVITY_FEATURE_PAGE, SETTINGS_FEATURE_PAGE]}
     />
   )
 }

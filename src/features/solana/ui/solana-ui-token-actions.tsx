@@ -1,12 +1,11 @@
+import { ellipsify } from '@core/core-helpers'
+import { SolanaUiFormBurn, SolanaUiFormSend } from '@features/solana'
 import { ActionIcon, ActionIconGroup } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { PublicKey } from '@solana/web3.js'
 import { IconFlame, IconSend, IconX } from '@tabler/icons-react'
 
-import { AccountUiFormBurn, AssetUiFormSend } from './asset-ui-form-send.tsx'
-import { ellipsify } from './ellipsify'
-
-export function AssetUiTokenActions({
+export function SolanaUiTokenActions({
   available,
   burn,
   close,
@@ -33,7 +32,7 @@ export function AssetUiTokenActions({
               size: 'lg',
               centered: true,
               children: (
-                <AssetUiFormSend available={available} send={(input) => send(input).then(() => modals.closeAll())} />
+                <SolanaUiFormSend available={available} send={(input) => send(input).then(() => modals.closeAll())} />
               ),
             })
           }
@@ -53,7 +52,7 @@ export function AssetUiTokenActions({
               size: 'lg',
               centered: true,
               children: (
-                <AccountUiFormBurn available={available} burn={(input) => burn(input).then(() => modals.closeAll())} />
+                <SolanaUiFormBurn available={available} burn={(input) => burn(input).then(() => modals.closeAll())} />
               ),
             })
           }

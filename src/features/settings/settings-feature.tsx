@@ -1,3 +1,4 @@
+import { CoreShellPage } from '@core'
 import { ClusterFeature } from '@features/cluster'
 import { DebugFeature } from '@features/debug/debug-feature.tsx'
 import { KeypairFeature } from '@features/keypair/feature/keypair-feature.tsx'
@@ -8,7 +9,17 @@ import React from 'react'
 import { Link, useRoutes } from 'react-router-dom'
 import { SettingsFeatureTheme } from './settings-feature-theme.tsx'
 
-export function SettingsFeature() {
+export const SETTINGS_FEATURE_ID = 'settings'
+export const SETTINGS_FEATURE_TITLE = 'Settings'
+export const SETTINGS_FEATURE_ICON = <IconSettings />
+export const SETTINGS_FEATURE_PAGE: CoreShellPage = {
+  path: SETTINGS_FEATURE_ID,
+  label: SETTINGS_FEATURE_TITLE,
+  leftSection: SETTINGS_FEATURE_ICON,
+  element: <SettingsFeature />,
+}
+
+function SettingsFeature() {
   const back = <UiBack to="/settings" />
   const pages = [
     { path: 'keypairs', label: 'Keypairs', leftSection: <IconKey />, element: <KeypairFeature leftAction={back} /> },

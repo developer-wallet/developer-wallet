@@ -1,10 +1,10 @@
+import { useCluster } from '@features/cluster'
+import { useRequestAirdrop, useTransferSol } from '@features/solana'
 import { Button, ButtonProps, Group, Modal, TextInput } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 
 import { PublicKey } from '@solana/web3.js'
 import { useState } from 'react'
-import { useCluster } from '../../cluster/data-access/cluster-provider.tsx'
-import { useRequestAirdrop, useTransferSol } from '../asset-data-access'
 
 export function AssetUiButtons({ address }: { address: PublicKey }) {
   const { cluster } = useCluster()

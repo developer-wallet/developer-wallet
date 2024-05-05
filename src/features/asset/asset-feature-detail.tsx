@@ -1,27 +1,15 @@
-import { ClusterUiExplorerLink } from '@features/cluster/ui/cluster-ui-explorer-link.tsx'
-import { AppKeypair } from '@features/keypair/data-access'
-import { PublicKey } from '@solana/web3.js'
+import { ellipsify } from '@core/core-helpers'
+import { ClusterUiExplorerLink } from '@features/cluster'
+import { getSolanaPublicKey } from '@features/keypair'
+import { SolanaFeatureTokens } from '@features/solana'
 import { UiStack } from '@ui'
 import { useMemo } from 'react'
-import { AssetUiTokens } from './asset-ui-tokens.tsx'
-
 import { AssetUiBalance } from './ui/asset-ui-balance.tsx'
 import { AssetUiButtons } from './ui/asset-ui-buttons.tsx'
-import { AssetUiTransactions } from './ui/asset-ui-transactions.tsx'
-import { ellipsify } from './ui/ellipsify'
 
-export function AssetFeatureDetail({ keypair }: { keypair: AppKeypair }) {
-  const { params } = { params: { address: keypair.publicKey } }
-  const address = useMemo(() => {
-    if (!params.address) {
-      return
-    }
-    try {
-      return new PublicKey(params.address)
-    } catch (e) {
-      console.log(`Invalid public key`, e)
-    }
-  }, [params])
+export function AssetFeatureDetail({ publicKey }: { publicKey: string }) {
+  const address = useMemo(() => getSolanaPublicKey(publicKey), [publicKey])
+
   if (!address) {
     return <div>Error loading account</div>
   }
@@ -36,8 +24,7 @@ export function AssetFeatureDetail({ keypair }: { keypair: AppKeypair }) {
         </UiStack>
 
         <UiStack align="stretch" gap="xl">
-          <AssetUiTokens address={address} />
-          <AssetUiTransactions address={address} />
+          <SolanaFeatureTokens address={address} />
         </UiStack>
       </UiStack>
     </UiStack>

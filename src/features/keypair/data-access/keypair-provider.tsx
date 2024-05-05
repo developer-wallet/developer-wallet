@@ -115,6 +115,7 @@ export function KeypairProvider({ children }: { children: ReactNode }) {
     generateKeypair: async () => {
       const keypair = await getKeypair()
       await mutationKeypairAdd.mutateAsync(keypair)
+      await queryKeypairs.refetch()
     },
   }
   return <Context.Provider value={value}>{children}</Context.Provider>

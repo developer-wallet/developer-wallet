@@ -1,10 +1,23 @@
-import { CoreHeaderSettings } from '@core/core-header/core-header-settings.tsx'
+import { ClusterUiSelect } from '@features/cluster'
+import { KeypairUiSelect } from '@features/keypair'
 import { Anchor, Group, useMantineTheme } from '@mantine/core'
 import { UiLogo, UiLogoType, useUi, useUiBreakpoints } from '@ui'
-import React, { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import { CoreHeaderFullscreen } from './core-header-fullscreen'
+import { CoreHeaderSettings } from './core-header-settings'
+import { CoreHeaderSidebar } from './core-header-sidebar'
 
-export function CoreHeader({ action }: { action?: ReactNode }) {
+export function CoreHeader({
+  withCluster = false,
+  withKeypair = false,
+  withFullscreen = false,
+  withSidebar = false,
+}: {
+  withCluster?: boolean
+  withKeypair?: boolean
+  withFullscreen?: boolean
+  withSidebar?: boolean
+}) {
   const { colors } = useMantineTheme()
   const { isDark } = useUi()
   const { isSm } = useUiBreakpoints()
@@ -16,7 +29,10 @@ export function CoreHeader({ action }: { action?: ReactNode }) {
         {isSm ? <UiLogo height={28} /> : <UiLogoType height={28} />}
       </Anchor>
       <Group gap="xs">
-        {action}
+        {withKeypair ? <KeypairUiSelect /> : null}
+        {withCluster ? <ClusterUiSelect /> : null}
+        {withFullscreen ? <CoreHeaderFullscreen /> : null}
+        {withSidebar ? <CoreHeaderSidebar /> : null}
         <CoreHeaderSettings />
       </Group>
     </Group>

@@ -1,15 +1,14 @@
-import { ClusterUiExplorerLink } from '@features/cluster/ui/cluster-ui-explorer-link.tsx'
+import { ellipsify, formatAmount } from '@core/core-helpers'
+import { ClusterUiExplorerLink } from '@features/cluster'
+import { RenderLabel } from '@features/label'
+import { useGetTokenAccounts } from '@features/solana'
 import { ActionIcon, Button, Group, Loader, Table, Text } from '@mantine/core'
 import { PublicKey } from '@solana/web3.js'
 import { IconRefresh } from '@tabler/icons-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { UiError, UiInfo, UiStack } from '@ui'
 import { useMemo, useState } from 'react'
-import { RenderLabel } from '../../label'
-import { useGetTokenAccounts } from '../asset-data-access'
-import { formatAmount } from './asset-ui-form-send.tsx'
-import { AssetUiTokenActions } from './asset-ui-token-actions.tsx'
-import { ellipsify } from './ellipsify'
+import { SolanaUiTokenActions } from '../../solana/ui/solana-ui-token-actions.tsx'
 
 export interface AccountUiTokenBurnInput {
   amount: string
@@ -130,7 +129,7 @@ export function AssetUiTokenTable({
                         </Text>
                       </Table.Td>
                       <Table.Td align="right">
-                        <AssetUiTokenActions
+                        <SolanaUiTokenActions
                           burn={async (input) => {
                             if (!burn) return
                             return burn({

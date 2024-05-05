@@ -1,31 +1,14 @@
 import './popup-layout.css'
-import { CoreHeaderFullscreen } from '@core/core-header/core-header-fullscreen.tsx'
-import { CoreHeaderSidebar } from '@core/core-header/core-header-sidebar.tsx'
-import { CoreHeader } from '@core/core-header/core-header.tsx'
-import { CoreShell, CoreShellPage } from '@core/core-shell/core-shell.tsx'
-import { Group } from '@mantine/core'
-import { IconActivity, IconMoneybag, IconSettings } from '@tabler/icons-react'
+import { CoreHeader, CoreShell } from '@core'
+import { ACTIVITY_FEATURE_PAGE } from '@features/activity'
+import { ASSET_FEATURE_PAGE } from '@features/asset'
+import { SETTINGS_FEATURE_PAGE } from '@features/settings'
 
 export function PopupLayout() {
-  const pages: CoreShellPage[] = [
-    { path: 'assets', label: 'Assets', leftSection: <IconMoneybag />, element: <div>Assets</div> },
-    { path: 'activity', label: 'Activity', leftSection: <IconActivity />, element: <div>Activity</div> },
-    { path: 'settings', label: 'Settings', leftSection: <IconSettings />, element: <div>Settings</div> },
-  ]
-
   return (
     <CoreShell
-      header={
-        <CoreHeader
-          action={
-            <Group>
-              <CoreHeaderFullscreen />
-              <CoreHeaderSidebar />
-            </Group>
-          }
-        />
-      }
-      pages={pages}
+      header={<CoreHeader withFullscreen withSidebar />}
+      pages={[ASSET_FEATURE_PAGE, ACTIVITY_FEATURE_PAGE, SETTINGS_FEATURE_PAGE]}
     />
   )
 }

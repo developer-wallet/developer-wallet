@@ -1,6 +1,6 @@
-import { useKeypair } from '@features/keypair/data-access'
+import { useCluster } from '@features/cluster'
+import { useKeypair } from '@features/keypair'
 import { Anchor } from '@mantine/core'
-
 import {
   burnChecked,
   closeAccount,
@@ -15,12 +15,13 @@ import {
   transferCheckedWithFee,
   TransferFeeConfig,
 } from '@solana/spl-token'
-
 import {
+  AccountInfo,
   Commitment,
   Connection,
   Keypair,
   LAMPORTS_PER_SOL,
+  ParsedAccountData,
   PublicKey,
   SystemProgram,
   TransactionMessage,
@@ -29,7 +30,7 @@ import {
 } from '@solana/web3.js'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import { useCluster } from '../cluster/data-access/cluster-provider.tsx'
+export type SolanaTokenAccountResult = { pubkey: PublicKey; account: AccountInfo<ParsedAccountData> }[]
 
 export function useQueries({ address, commitment = 'confirmed' }: { address: PublicKey; commitment?: Commitment }) {
   const { connection } = useCluster()
@@ -201,15 +202,19 @@ export function useQueries({ address, commitment = 'confirmed' }: { address: Pub
 export function useGetBalance({ address }: { address: PublicKey }) {
   return useQuery(useQueries({ address }).getBalance)
 }
+
 export function useGetSignatures({ address }: { address: PublicKey }) {
   return useQuery(useQueries({ address }).getSignatures)
 }
+
 export function useGetTokenAccounts({ address }: { address: PublicKey }) {
   return useQuery(useQueries({ address }).getTokenAccounts)
 }
+
 export function useGetTokenBalance({ address }: { address: PublicKey }) {
   return useQuery(useQueries({ address }).getTokenBalance)
 }
+
 export function useRequestAirdrop({ address }: { address: PublicKey }) {
   const {
     requestAirdrop: { mutationKey, mutationFn },

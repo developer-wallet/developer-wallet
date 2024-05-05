@@ -1,10 +1,15 @@
 import { ellipsify } from '@core/core-helpers'
-import { Keypair as SolanaKeypair } from '@solana/web3.js'
+import { Keypair as SolanaKeypair, PublicKey } from '@solana/web3.js'
 import { AppKeypair } from './keypair-types.ts'
 
-export function getSolanaKeypair(kp: AppKeypair): SolanaKeypair | undefined {
-  if (!kp?.secretKey) return undefined
-  return isValidSolanaKeypair(kp.secretKey)
+export function getSolanaKeypair(keypair: AppKeypair): SolanaKeypair | undefined {
+  if (!keypair?.secretKey) return undefined
+  return isValidSolanaKeypair(keypair.secretKey)
+}
+
+export function getSolanaPublicKey(publicKey?: PublicKey | string): PublicKey | undefined {
+  if (!publicKey) return undefined
+  return isValidSolanaPublicKey(publicKey)
 }
 
 export function isValidSolanaKeypair(secretKey: string): SolanaKeypair | undefined {
@@ -12,6 +17,15 @@ export function isValidSolanaKeypair(secretKey: string): SolanaKeypair | undefin
     return SolanaKeypair.fromSecretKey(new Uint8Array(JSON.parse(secretKey)))
   } catch (e) {
     console.log('Error parsing secret key', e)
+    return undefined
+  }
+}
+
+export function isValidSolanaPublicKey(publicKey: PublicKey | string): PublicKey | undefined {
+  try {
+    return new PublicKey(publicKey)
+  } catch (e) {
+    console.log(`Invalid public key`, e)
     return undefined
   }
 }
