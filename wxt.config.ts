@@ -12,7 +12,7 @@ export default defineConfig({
   },
   manifest: {
     name: 'Developer Wallet',
-    permissions: ['sidePanel', 'storage'],
+    permissions: ['sidePanel', 'storage', 'tabs'],
   },
   vite: () => ({
     plugins: [react()],
