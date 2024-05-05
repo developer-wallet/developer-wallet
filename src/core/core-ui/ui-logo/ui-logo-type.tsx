@@ -1,9 +1,8 @@
-import logoType from '/logotype.svg'
+import { UiLogoTypeDark, UiLogoTypeLight, useUi } from '@core/core-ui'
+import { UiLogoProps } from './ui-logo-props'
 
-export interface UiLogoTypeProps {
-  height?: number
-  width?: number
-}
-export function UiLogoType(props: UiLogoTypeProps = {}) {
-  return <img src={logoType} alt="logo" {...props} />
+export function UiLogoType(props: UiLogoProps = {}) {
+  const { isDark } = useUi()
+
+  return isDark ? <UiLogoTypeDark {...props} /> : <UiLogoTypeLight {...props} />
 }

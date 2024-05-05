@@ -1,7 +1,7 @@
 import { SimpleGrid, Text, UnstyledButton, useMantineTheme } from '@mantine/core'
 import { ComponentType } from 'react'
+import { Link } from 'react-router-dom'
 import { getColorByIndex } from '../ui-helpers'
-import { useUiTheme } from '../ui-theme'
 import classes from './ui-dashboard-grid.module.css'
 
 export interface UiDashboardItem {
@@ -16,7 +16,6 @@ export interface UiDashboardGridProps {
 }
 
 export function UiDashboardGrid({ links }: UiDashboardGridProps) {
-  const { Link } = useUiTheme()
   const theme = useMantineTheme()
 
   const items = links.map((item, index) => (

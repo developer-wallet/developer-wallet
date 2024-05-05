@@ -1,9 +1,8 @@
 import { Button, Container, Group, Text, Title } from '@mantine/core'
-import { useUiTheme } from '../ui-theme'
+import { Link } from 'react-router-dom'
 import classes from './ui-not-found.module.css'
 
 export function UiNotFound({ to = '/' }: { to?: string }) {
-  const { Link } = useUiTheme()
   return (
     <Container className={classes.root}>
       <div className={classes.label}>404</div>
