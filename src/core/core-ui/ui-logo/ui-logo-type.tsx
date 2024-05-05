@@ -1,4 +1,4 @@
-import { UiLogoTypeDark, UiLogoTypeLight, useUi } from '@core/core-ui'
+import { UiLogoTypeDark, UiLogoTypeLight, useUi } from '@ui'
 import { UiLogoProps } from './ui-logo-props'
 
 export function UiLogoType(props: UiLogoProps = {}) {

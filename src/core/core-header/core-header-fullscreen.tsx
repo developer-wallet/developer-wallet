@@ -1,4 +1,4 @@
-import { useCorePages } from '@core/core-provider/core-provider.tsx'
+import { useCorePages } from '@core'
 import { ActionIcon, ActionIconProps } from '@mantine/core'
 import { IconMaximize } from '@tabler/icons-react'
 

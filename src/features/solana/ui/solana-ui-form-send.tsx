@@ -1,4 +1,4 @@
-import { formatAmount } from '@core/core-helpers'
+import { formatAmount } from '@core'
 import { Button, ButtonProps, Group, Stack, Text, TextInput } from '@mantine/core'
 import { UiGroup } from '@ui'
 import { useState } from 'react'

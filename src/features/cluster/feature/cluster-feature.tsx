@@ -1,18 +1,29 @@
+import { CoreShellPage } from '@core'
 import { Button } from '@mantine/core'
 import { modals } from '@mantine/modals'
 import { IconServer } from '@tabler/icons-react'
-import { UiAlert, UiLoader, UiPage } from '@ui'
-import { ReactNode } from 'react'
-import { useCluster } from './data-access'
-import { ClusterUiForm, ClusterUiTable } from './ui'
+import { UiAlert, UiBack, UiLoader, UiPage } from '@ui'
+import { useCluster } from '../data-access'
+import { ClusterUiForm, ClusterUiTable } from '../ui'
 
-export function ClusterFeature({ leftAction }: { leftAction?: ReactNode }) {
+const FEATURE_ID = 'clusters'
+const FEATURE_TITLE = 'Clusters'
+const FEATURE_ICON = <IconServer />
+
+export const FEATURE_PAGE_SETTINGS_CLUSTER: CoreShellPage = {
+  path: FEATURE_ID,
+  label: FEATURE_TITLE,
+  leftSection: FEATURE_ICON,
+  element: <ClusterFeature />,
+}
+
+function ClusterFeature() {
   const { addCluster, clusters, deleteCluster, loading, reset, selectCluster, updateCluster } = useCluster()
 
   return (
     <UiPage
-      title="Clusters"
-      leftAction={leftAction ?? <IconServer />}
+      title={FEATURE_TITLE}
+      leftAction={<UiBack to={`/settings`} />}
       rightAction={
         <Button.Group>
           <Button

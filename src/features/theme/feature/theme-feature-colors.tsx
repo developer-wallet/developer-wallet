@@ -1,7 +1,7 @@
 import { ColorPicker, DEFAULT_THEME } from '@mantine/core'
 import { UiCard, useUi } from '@ui'
 
-export function SettingsFeatureThemeColors() {
+export function ThemeFeatureColors() {
   const { allColors, color, setColor } = useUi()
   const colorMap = allColors.map((colors) => ({ label: colors, value: DEFAULT_THEME.colors[colors][6] }))
 

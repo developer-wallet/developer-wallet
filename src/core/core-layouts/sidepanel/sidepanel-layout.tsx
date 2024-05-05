@@ -1,14 +1,14 @@
 import './sidepanel-layout.css'
 import { CoreHeader, CoreShell } from '@core'
-import { ACTIVITY_FEATURE_PAGE } from '@features/activity'
-import { ASSET_FEATURE_PAGE } from '@features/asset'
-import { SETTINGS_FEATURE_PAGE } from '@features/settings/settings-feature.tsx'
+import { FEATURE_PAGE_ACTIVITY } from '@features/activity'
+import { FEATURE_PAGE_ASSET } from '@features/asset'
+import { FEATURE_PAGE_SETTINGS } from '@features/settings'
 
 export function SidepanelLayout() {
   return (
     <CoreShell
       header={<CoreHeader withFullscreen />}
-      pages={[ASSET_FEATURE_PAGE, ACTIVITY_FEATURE_PAGE, SETTINGS_FEATURE_PAGE]}
+      pages={[FEATURE_PAGE_ASSET, FEATURE_PAGE_ACTIVITY, FEATURE_PAGE_SETTINGS]}
     />
   )
 }

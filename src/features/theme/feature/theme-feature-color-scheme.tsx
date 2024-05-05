@@ -1,7 +1,7 @@
 import { MantineColorScheme, SegmentedControl } from '@mantine/core'
 import { UiCard, useUi } from '@ui'
 
-export function SettingsFeatureThemeColorScheme() {
+export function ThemeFeatureColorScheme() {
   const { colorScheme, setColorScheme } = useUi()
 
   return (

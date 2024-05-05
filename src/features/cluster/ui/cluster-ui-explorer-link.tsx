@@ -1,7 +1,7 @@
 import { useCluster } from '@features/cluster'
 import { Anchor, AnchorProps, Group } from '@mantine/core'
 import { UiCopy } from '@ui'
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 export function ClusterUiExplorerLink({
   copy,

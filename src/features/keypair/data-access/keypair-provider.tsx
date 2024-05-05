@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { toastError } from '@ui'
 import { createContext, ReactNode, useContext, useMemo } from 'react'
 import { storage, WxtStorageItem } from 'wxt/storage'
-import { getKeypair, getSolanaInstance, getSolanaKeypair, isValidSolanaKeypair } from './keypair-helpers'
+import { generateAppKeypair, getSolanaInstance, getSolanaKeypair, isValidSolanaKeypair } from './keypair-helpers'
 import { AppKeypair, KeypairFormInput } from './keypair-types'
 
 export const defaultKeypairs: AppKeypair[] = []
@@ -113,7 +113,7 @@ export function KeypairProvider({ children }: { children: ReactNode }) {
         await queryKeypairs.refetch()
       }),
     generateKeypair: async () => {
-      const keypair = await getKeypair()
+      const keypair = await generateAppKeypair()
       await mutationKeypairAdd.mutateAsync(keypair)
       await queryKeypairs.refetch()
     },

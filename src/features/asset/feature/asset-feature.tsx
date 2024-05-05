@@ -4,20 +4,22 @@ import { IconMoneybag } from '@tabler/icons-react'
 import { UiPage, UiWarning } from '@ui'
 import { AssetFeatureDetail } from './asset-feature-detail'
 
-export const ASSET_FEATURE_ID = 'asset'
-export const ASSET_FEATURE_TITLE = 'Asset'
-export const ASSET_FEATURE_ICON = <IconMoneybag />
-export const ASSET_FEATURE_PAGE: CoreShellPage = {
-  path: ASSET_FEATURE_ID,
-  label: ASSET_FEATURE_TITLE,
-  leftSection: ASSET_FEATURE_ICON,
+const FEATURE_ID = 'asset'
+const FEATURE_TITLE = 'Asset'
+const FEATURE_ICON = <IconMoneybag />
+
+export const FEATURE_PAGE_ASSET: CoreShellPage = {
+  path: FEATURE_ID,
+  label: FEATURE_TITLE,
+  leftSection: FEATURE_ICON,
   element: <AssetFeature />,
 }
 
 function AssetFeature() {
   const { keypair } = useKeypair()
+
   return (
-    <UiPage title="Assets" leftAction={<IconMoneybag />}>
+    <UiPage title={FEATURE_TITLE} leftAction={FEATURE_ICON}>
       {keypair ? (
         <AssetFeatureDetail publicKey={keypair.publicKey} />
       ) : (

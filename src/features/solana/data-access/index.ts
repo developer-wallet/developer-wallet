@@ -1,1 +1,1 @@
-export * from './solana-queries.tsx'
+export * from './solana-queries'

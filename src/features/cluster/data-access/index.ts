@@ -1,3 +1,3 @@
-export * from './cluster-helpers.ts'
-export * from './cluster-provider.tsx'
-export * from './cluster-types.ts'
+export * from './cluster-helpers'
+export * from './cluster-provider'
+export * from './cluster-types'

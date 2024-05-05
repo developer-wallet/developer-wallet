@@ -1,1 +1,1 @@
-export * from './asset-feature.tsx'
+export * from './feature'

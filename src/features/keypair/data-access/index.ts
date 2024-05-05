@@ -1,3 +1,3 @@
-export * from './keypair-provider.tsx'
-export * from './keypair-helpers.ts'
-export * from './keypair-types.ts'
+export * from './keypair-provider'
+export * from './keypair-helpers'
+export * from './keypair-types'

@@ -1,4 +1,4 @@
-import { ellipsify } from '@core/core-helpers'
+import { ellipsify } from '@core'
 import { ClusterUiExplorerLink } from '@features/cluster'
 import { Badge, Button, Table } from '@mantine/core'
 import { ConfirmedSignatureInfo } from '@solana/web3.js'

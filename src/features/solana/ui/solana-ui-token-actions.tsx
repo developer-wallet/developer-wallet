@@ -1,4 +1,4 @@
-import { ellipsify } from '@core/core-helpers'
+import { ellipsify } from '@core'
 import { SolanaUiFormBurn, SolanaUiFormSend } from '@features/solana'
 import { ActionIcon, ActionIconGroup } from '@mantine/core'
 import { modals } from '@mantine/modals'

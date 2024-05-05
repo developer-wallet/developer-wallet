@@ -2,7 +2,6 @@ import { ActionIcon, Anchor, Badge, Code, Group, Table, Text, Tooltip } from '@m
 import { modals } from '@mantine/modals'
 import { IconHandFinger, IconHandFingerOff, IconPencil, IconTrash } from '@tabler/icons-react'
 import { UiDebugModal } from '@ui'
-import React from 'react'
 import { AppCluster } from '../data-access'
 import { ClusterUiForm } from './cluster-ui-form'
 

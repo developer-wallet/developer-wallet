@@ -1,5 +1,5 @@
-import { ellipsify } from '@core/core-helpers'
-import { useKeypair } from '@features/keypair/data-access'
+import { ellipsify } from '@core'
+import { useKeypair } from '@features/keypair'
 import { Anchor, Group, Text, TextProps } from '@mantine/core'
 import { UiCopy } from '@ui'
 import { createContext, ReactNode, useContext, useMemo } from 'react'

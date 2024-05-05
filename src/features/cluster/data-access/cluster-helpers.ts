@@ -1,5 +1,5 @@
 import { clusterApiUrl, Connection } from '@solana/web3.js'
-import { AppCluster, AppClusterNetwork } from './cluster-types.ts'
+import { AppCluster, AppClusterNetwork } from './cluster-types'
 
 export function getClusterUrlParam(cluster: AppCluster): string {
   let suffix = ''

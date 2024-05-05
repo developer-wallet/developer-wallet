@@ -2,22 +2,23 @@ import { CoreShellPage } from '@core'
 import { useKeypair } from '@features/keypair'
 import { IconActivity } from '@tabler/icons-react'
 import { UiPage, UiWarning } from '@ui'
-import { ActivityFeatureDetail } from './activity-feature-detail.tsx'
+import { ActivityFeatureDetail } from './activity-feature-detail'
 
-export const ACTIVITY_FEATURE_ID = 'activity'
-export const ACTIVITY_FEATURE_TITLE = 'Activity'
-export const ACTIVITY_FEATURE_ICON = <IconActivity />
-export const ACTIVITY_FEATURE_PAGE: CoreShellPage = {
-  path: ACTIVITY_FEATURE_ID,
-  label: ACTIVITY_FEATURE_TITLE,
-  leftSection: ACTIVITY_FEATURE_ICON,
+const FEATURE_ID = 'activity'
+const FEATURE_TITLE = 'Activity'
+const FEATURE_ICON = <IconActivity />
+
+export const FEATURE_PAGE_ACTIVITY: CoreShellPage = {
+  path: FEATURE_ID,
+  label: FEATURE_TITLE,
+  leftSection: FEATURE_ICON,
   element: <ActivityFeature />,
 }
 
 function ActivityFeature() {
   const { keypair } = useKeypair()
   return (
-    <UiPage title={ACTIVITY_FEATURE_TITLE} leftAction={ACTIVITY_FEATURE_ICON}>
+    <UiPage title={FEATURE_TITLE} leftAction={FEATURE_ICON}>
       {keypair ? (
         <ActivityFeatureDetail publicKey={keypair.publicKey} />
       ) : (

@@ -1,7 +1,7 @@
-import { useCorePages } from '@core/core-provider'
+import { useCorePages } from '@core'
 import { useCluster } from '@features/cluster'
 import { useKeypair } from '@features/keypair'
-import { SettingsFeatureThemeColors, SettingsFeatureThemeColorScheme } from '@features/settings'
+import { ThemeFeatureColors, ThemeFeatureColorScheme } from '@features/theme'
 import { Button, Flex, Group, Stepper } from '@mantine/core'
 import { toastWarning, UiCard, UiInfo, UiStack } from '@ui'
 import { useMemo, useState } from 'react'
@@ -54,11 +54,11 @@ export function WelcomeLayout() {
     },
     {
       id: 2,
-      label: 'Theming',
+      label: 'Theme',
       element: (
         <div>
-          <SettingsFeatureThemeColorScheme />
-          <SettingsFeatureThemeColors />
+          <ThemeFeatureColorScheme />
+          <ThemeFeatureColors />
         </div>
       ),
       isComplete: () => true,

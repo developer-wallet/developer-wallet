@@ -1,4 +1,4 @@
-import { useUi } from '@core/core-ui'
+import { useUi } from '@ui'
 import { UiLogoProps } from './ui-logo-props'
 
 export function UiLogo({ height, width, ...props }: UiLogoProps = {}) {

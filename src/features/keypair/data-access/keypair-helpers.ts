@@ -1,6 +1,6 @@
-import { ellipsify } from '@core/core-helpers'
+import { ellipsify } from '@core'
 import { Keypair as SolanaKeypair, PublicKey } from '@solana/web3.js'
-import { AppKeypair } from './keypair-types.ts'
+import { AppKeypair } from './keypair-types'
 
 export function getSolanaKeypair(keypair: AppKeypair): SolanaKeypair | undefined {
   if (!keypair?.secretKey) return undefined
@@ -37,7 +37,7 @@ export function getSolanaInstance(kp: Omit<AppKeypair, 'solana'>): AppKeypair {
   }
 }
 
-export async function getKeypair(): Promise<AppKeypair> {
+export async function generateAppKeypair(): Promise<AppKeypair> {
   const keypair = SolanaKeypair.generate()
 
   return {

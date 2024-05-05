@@ -1,14 +1,13 @@
-import { ellipsify, formatAmount } from '@core/core-helpers'
+import { ellipsify, formatAmount } from '@core'
 import { ClusterUiExplorerLink } from '@features/cluster'
 import { RenderLabel } from '@features/label'
-import { useGetTokenAccounts } from '@features/solana'
+import { SolanaUiTokenActions, useGetTokenAccounts } from '@features/solana'
 import { ActionIcon, Button, Group, Loader, Table, Text } from '@mantine/core'
 import { PublicKey } from '@solana/web3.js'
 import { IconRefresh } from '@tabler/icons-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { UiError, UiInfo, UiStack } from '@ui'
 import { useMemo, useState } from 'react'
-import { SolanaUiTokenActions } from '../../solana/ui/solana-ui-token-actions.tsx'
 
 export interface AccountUiTokenBurnInput {
   amount: string

@@ -1,1 +1,1 @@
-export * from './data-access/label-provider.tsx'
+export * from './data-access'

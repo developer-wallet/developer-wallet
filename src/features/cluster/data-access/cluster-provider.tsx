@@ -4,8 +4,8 @@ import { toastError } from '@ui'
 import { nanoid } from 'nanoid'
 import { createContext, ReactNode, useContext, useMemo } from 'react'
 import { WxtStorageItem } from 'wxt/storage'
-import { getClusterUrlParam, getConnection, getNetwork, isValidConnection } from './cluster-helpers.ts'
-import { AppCluster, AppClusterNetwork, ClusterFormInput } from './cluster-types.ts'
+import { getClusterUrlParam, getConnection, getNetwork, isValidConnection } from './cluster-helpers'
+import { AppCluster, AppClusterNetwork, ClusterFormInput } from './cluster-types'
 
 export const defaultClusters: AppCluster[] = [
   {

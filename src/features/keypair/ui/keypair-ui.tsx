@@ -1,7 +1,7 @@
 import { Button, Group, Menu, Modal, TextInput } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { IconWallet, IconWalletOff } from '@tabler/icons-react'
-import { UiStack } from '@ui/index.ts'
+import { UiStack } from '@ui'
 
 import { useState } from 'react'
 import { Link } from 'react-router-dom'

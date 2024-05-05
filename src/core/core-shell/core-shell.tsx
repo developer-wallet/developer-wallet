@@ -69,7 +69,7 @@ export function CoreShell({ header, pages }: CoreShellProps) {
       <AppShell.Header>{header}</AppShell.Header>
       <AppShell.Main
         style={{
-          height: 'calc(100% - 60px)',
+          height: 'calc(100% - 120px)',
           overflow: 'auto',
           paddingBottom: 60,
         }}

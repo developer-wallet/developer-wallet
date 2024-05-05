@@ -1,4 +1,4 @@
-import { ellipsify } from '@core/core-helpers'
+import { ellipsify } from '@core'
 import { ClusterUiExplorerLink } from '@features/cluster'
 import { SolanaTokenAccountResult } from '@features/solana'
 import { Button, Table, Text } from '@mantine/core'

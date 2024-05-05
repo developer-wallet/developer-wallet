@@ -2,7 +2,6 @@ import { AppCluster, ClusterFormInput } from '@features/cluster'
 import { Button, Group, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { UiStack } from '@ui'
-import React from 'react'
 
 export function ClusterUiForm({
   item,
