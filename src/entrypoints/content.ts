@@ -1,6 +1,6 @@
 import { type SolanaSignInInput, type SolanaSignInOutput } from '@solana/wallet-standard-features';
 import { PublicKey, Transaction, VersionedTransaction, SendOptions } from '@solana/web3.js';
-import { initialize, DevWallet as DevWalletInterface, DeveloperWalletEvent } from 'developer-wallet';
+import { initialize, DevWallet as DevWalletInterface, DeveloperWalletEvent } from '../wallet';
 
 class DevWallet implements DevWalletInterface {
   publicKey: PublicKey | null;

@@ -1,6 +1,4 @@
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
-import nodePolyfills from 'rollup-plugin-polyfill-node'
-import commonjs from '@rollup/plugin-commonjs'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'wxt'
 
@@ -17,11 +15,7 @@ export default defineConfig({
     permissions: ['sidePanel', 'storage', 'tabs'],
   },
   vite: () => ({
-    plugins: [
-      react(),
-      nodePolyfills({}),
-      commonjs(),
-    ],
+    plugins: [react()],
     define: {
       global: 'globalThis',
     },
