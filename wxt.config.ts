@@ -1,5 +1,6 @@
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
 import react from '@vitejs/plugin-react'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import { defineConfig } from 'wxt'
 
 // See https://wxt.dev/api/config.html
@@ -15,7 +16,7 @@ export default defineConfig({
     permissions: ['sidePanel', 'storage', 'tabs'],
   },
   vite: () => ({
-    plugins: [react()],
+    plugins: [react(), nodePolyfills()],
     define: {
       global: 'globalThis',
     },
