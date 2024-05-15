@@ -8,30 +8,34 @@ import { HashRouter } from 'react-router-dom'
 
 const client = new QueryClient()
 
+export type CorePage = 'fullscreen' | 'popup' | 'sidepanel'
+export type CorePageMap = Record<CorePage, string>
 export interface CoreProviderContext {
   href: string
   origin: string
   pathname: string
-  pages: {
-    fullscreen: string
-    popup: string
-    sidepanel: string
-  }
+  pages: CorePageMap
+  navigate: (page: CorePage) => void
 }
 
 const Context = createContext<CoreProviderContext>({} as CoreProviderContext)
 
 export function CoreProvider({ children }: { children: ReactNode }) {
   const { href, origin, pathname } = window.location
+  const pages: CorePageMap = {
+    fullscreen: `${origin}/fullscreen.html`,
+    popup: `${origin}/popup.html`,
+    sidepanel: `${origin}/sidepanel.html`,
+  }
+  function navigate(page: CorePage) {
+    window.location.href = pages[page]
+  }
   const value: CoreProviderContext = {
     href,
     origin,
     pathname,
-    pages: {
-      fullscreen: `${origin}/fullscreen.html`,
-      popup: `${origin}/popup.html`,
-      sidepanel: `${origin}/sidepanel.html`,
-    },
+    pages,
+    navigate,
   }
 
   return (
