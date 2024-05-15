@@ -1,5 +1,6 @@
 import { ellipsify } from '@core'
 import { Keypair as SolanaKeypair, PublicKey } from '@solana/web3.js'
+import { nanoid } from 'nanoid'
 import { AppKeypair } from './keypair-types'
 
 export function getSolanaKeypair(keypair: AppKeypair): SolanaKeypair | undefined {
@@ -19,6 +20,30 @@ export function isValidSolanaKeypair(secretKey: string): SolanaKeypair | undefin
     console.log('Error parsing secret key', e)
     return undefined
   }
+}
+
+export function getKeypairFromByteArray(secretKey: string): SolanaKeypair | undefined {
+  try {
+    return SolanaKeypair.fromSecretKey(new Uint8Array(JSON.parse(secretKey)))
+  } catch (e) {
+    console.log('Error parsing secret key', e)
+    return undefined
+  }
+}
+
+export function getKeypairFromSecret(secret: string) {
+  if (isByteArray(secret)) {
+    const keypair = getKeypairFromByteArray(secret)
+    if (!keypair) {
+      throw new Error(`Invalid byte array`)
+    }
+    return keypair
+  }
+  throw new Error(`Invalid secret`)
+}
+
+export function isByteArray(secret: string) {
+  return secret.startsWith('[') && secret.endsWith(']') && secret.includes(',')
 }
 
 export function isValidSolanaPublicKey(publicKey: PublicKey | string): PublicKey | undefined {
@@ -41,6 +66,7 @@ export async function generateAppKeypair(): Promise<AppKeypair> {
   const keypair = SolanaKeypair.generate()
 
   return {
+    id: nanoid(),
     name: ellipsify(keypair.publicKey.toString()),
     publicKey: keypair.publicKey.toString(),
     secretKey: `[${Array.from(keypair.secretKey)}]`,

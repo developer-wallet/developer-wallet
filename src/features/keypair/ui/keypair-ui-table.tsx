@@ -4,26 +4,24 @@ import { UiCopy, UiDebugModal } from '@ui'
 import { RenderLabel } from '../../label'
 import { AppKeypair } from '../data-access'
 
-export function KeypairUiTable({
-  keypairs,
-  deleteKeypair,
-  selectKeypair,
-}: {
+export interface KeypairUiTableProps {
   keypairs: AppKeypair[]
   deleteKeypair: (keypair: AppKeypair) => Promise<void>
   selectKeypair: (keypair: AppKeypair) => Promise<void>
-}) {
+}
+
+export function KeypairUiTable({ keypairs, deleteKeypair, selectKeypair }: KeypairUiTableProps) {
   return (
     <Table>
       <Table.Tbody>
         {keypairs?.map((item) => (
-          <Table.Tr key={item.name}>
+          <Table.Tr key={item.id}>
             <Table.Td>
               {item.active ? (
                 <RenderLabel size="lg" publicKey={item.publicKey} />
               ) : (
                 <Anchor component="button" title="Select keypair" onClick={() => selectKeypair(item)}>
-                  <RenderLabel publicKey={item.publicKey} />
+                  <RenderLabel size="lg" publicKey={item.publicKey} />
                 </Anchor>
               )}
 
@@ -40,6 +38,7 @@ export function KeypairUiTable({
                   <IconCurrencySolana />
                 </ActionIcon>
                 <UiDebugModal data={item} />
+                <UiCopy text={item.secretKey} tooltip="Copy Secret" />
                 <ActionIcon
                   size="sm"
                   variant="light"

@@ -3,7 +3,7 @@ import { Button, Menu } from '@mantine/core'
 import { IconServer, IconServerOff } from '@tabler/icons-react'
 import { Link } from 'react-router-dom'
 
-export function ClusterUiSelect() {
+export function ClusterUiSelect({ withManage = true }: { withManage?: boolean }) {
   const { clusters, selectCluster, cluster } = useCluster()
   return (
     <Menu shadow="md" width={200}>
@@ -24,10 +24,14 @@ export function ClusterUiSelect() {
             {item.name}
           </Menu.Item>
         ))}
-        <Menu.Divider />
-        <Menu.Item component={Link} to="/settings/clusters">
-          Manage Clusters
-        </Menu.Item>
+        {withManage ? (
+          <>
+            <Menu.Divider />
+            <Menu.Item component={Link} to="/settings/clusters">
+              Manage Clusters
+            </Menu.Item>
+          </>
+        ) : null}
       </Menu.Dropdown>
     </Menu>
   )
