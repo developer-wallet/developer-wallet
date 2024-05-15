@@ -1,4 +1,3 @@
-import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
 import react from '@vitejs/plugin-react'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import { defineConfig } from 'wxt'
@@ -9,6 +8,7 @@ export default defineConfig({
   alias: {
     '@core': './src/core',
     '@features': './src/features',
+    '@pubkey-explorer': '/src/pubkey-explorer',
     '@ui': './src/core/core-ui',
   },
   manifest: {
@@ -23,10 +23,10 @@ export default defineConfig({
     optimizeDeps: {
       esbuildOptions: {
         plugins: [
-          NodeGlobalsPolyfillPlugin({
-            buffer: true,
-            process: true,
-          }),
+          // NodeGlobalsPolyfillPlugin({
+          //   buffer: false,
+          //   process: true,
+          // }),
         ],
       },
     },
